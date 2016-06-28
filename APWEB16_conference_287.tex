@@ -3,28 +3,22 @@
 
 \usepackage{amssymb}
 \setcounter{tocdepth}{3}
-%\usepackage{llncsdoc}
-
-%\usepackage{fontspec}
-\usepackage{comment}
-\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 \usepackage{graphicx}
-\usepackage{subfigure}
-
-\usepackage{amsmath}%数学公式
-\usepackage{bm}
-\usepackage{multirow}
 \usepackage{url}
 
-%四象限图 quadrant chart
-% \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}
-%\usepackage{rotating}
-%\usepackage{array}
-% \newcolumntype{M}{>{\centering\arraybackslash}m{2cm}}
+\usepackage{comment}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+
+\usepackage{subfigure}
+
+\usepackage{amsmath}%math symbols
+\usepackage{bm}
+\usepackage{multirow}
 
 
 \title{An Efficient Online Event Detection Method for Microblogs via User Modeling \thanks{This research is supported by the National High Technology Research and Development Program of China (Grant No. 2012AA011002), Natural Science Foundation of China (Grant No. 61300003), Specialized Research Fund for the Doctoral Program of Higher Education(Grant No. 20130001120001).}}
+% a short form should be given in case it is too long for the running head
+\titlerunning{An Efficient Online Event Detection Method for Microblogs}
 
 
 \begin{document}
@@ -51,20 +45,18 @@ Baidu Inc., Beijing, China\\
 \begin{abstract}
 Detecting events in microblog is important but still challenging. As tweet stream is a mixture of user interests and external events, it’s expensive to distinguish them.
 Existing methods are ineffective since they ignore user interests or only model interests and events on a fixed dataset without scalability. In this paper, we introduce an online learning model User Modeling Based Interest and Event Topic Model (UMIETM). UMIETM (1) exploits user modeling's information to discover events by filtering out user interest-related tweets, and (2) treats the arriving data as stream and run the detection in online learning style. Furthermore, UMIETM can handle dynamic increased vocabulary in tweet stream. The UMIETM is verified on the real dataset which spans one year and contains 16 million tweets, and it outperforms a state-of-the-art model in quantitative.
+\keywords{event detection, online learning model, microblog stream, user modeling.}
 \end{abstract}
 \section{Introduction}
 Detecting events in microblog is very important as the microblog has become one of the most popular sites for users to publish and get recent news.
 However it is still a challenging task, for the reason that tweets are (1) in large scale and (2) in a mixture of user interests and external events.
 Users post tweets not only for reporting breaking news, but also talking about interest related affairs.
 Existing methods are insufficient in this scenario, such as \cite{lau2012line} which is ineffective when ignoring user interests, and \cite{timeUserLDA2012finding} which lacks scalability when considering user interests but on a fixed dataset.
-%Text similarity based methods\cite{petrovic2010streaming}\cite{mccreadiescalable} suffer from ineffectiveness. %since they ignore users' preferences.
-%Similarity based method can succesfully detect the tweet which is retweeted by many times, but fail to find out the event which is described from many different perspectives.
 
 In another way, user profile or user description is vital in social media. 
 And the existing event detection lacks the exploiting of them.
 Users describe themselves in profiles to show their interests, locations, occupations or identifications.
 These factors are stable and the high generalization of user's characteristics.
-%One example is a twitter account @storyful\footnote{https://twitter.com/storyful} mainly posts journalism and breaking news and his profile is \textit{If you work in \#Journalism...}
 One example is Biz Stone\footnote{https://twitter.com/biz} whose profile is \textit{Co-founder of Twitter, Medium, and now Co-founder and CEO of Askjelly.com}. We read his recent 100 tweets, and found 7 tweets talking about Twitter and 36 about Jelly.
 This example suggests that user profile is stable to reflect user's interests.
 As another example, the profile of a Chinese microblog user @hadoopchina\footnote{http://weibo.com/hadoopchina} is \textit{\#Cloud}, \textit{\#YARN}, \textit{\#Spark}, \textit{\#Big\_Data}, \textit{\#Hadoop}. He mainly tweets IT news until external events happen,  such as celebrating spring festival.
@@ -74,8 +66,6 @@ Although some accounts do not have the accurate self-descriptions, they can be a
 In this paper, we introduce an online learning model, the \textit{User Modeling Based Interest and Event Topic Model} (UMIETM) to discover the events by filtering out user interests related tweets, taking users' profiles into consideration which indicate long term interests.
 
 It's also very interesting when we treat the event detection in microblogs as a kind of crowd sourcing service from different twitterers.
-%It's impossible to follow every tweets published from microblog users.
-%It's a waste of time and energy to get information overloaded.
 As the old saying "Birds of a feather fly together", there must be something happened when all birds fly. 
 We take user profiles as the strong signal to indicate user's behavior or interests.
 When different twitterers with different user profiles post or retweet something, they are telling us that we should pay attention to what they have paid attention to.
@@ -87,12 +77,6 @@ As the high correlation between user profiles and user interests, UMIETM can imp
 In summary, our contribution in this paper are two folds:
 (1) exploiting user profiles, which indicates users' long term interests, to discover event-related tweets,
 (2) proposing an online event detection method which benefits from user profiles.
-%We can keep long-term interests in memory and throw away event related parameters, which are learned from previous  time window.
-%\begin{figure}
-%    \label{fig:processflow}
-%    \includegraphics[width=1.0\textwidth]{img/processflow.pdf}
-%    \caption{Process flow of UMIETM} 
-%\end{figure}
 
 \section{Related Work}
 Study of event detection on text stream can be divided into three ways: word frequency based, text similarity based and topic model based.
@@ -108,7 +92,6 @@ Wavelet analysis based method's complexity is very high, so its scalability is l
 
 
 In contrast, topic model can handle the lexical variation problem with word co-occurrence\cite{blei2003latent}.
-%After \cite{blei2006dynamic} and \cite{wang2006topics} introducing time factor into topic model, a number of temporal model has been developed to different tasks.
 As many events are highly related to topics, a number of methods based on topic model have been proposed for event detection, including online detection and offline detection.
 Lau\cite{lau2012line} introduces an online topic model to track emerging events in microblogs.
 It can deal with a massive of tweets, but it doesn't filter out the tweets related to user interests.
@@ -126,17 +109,6 @@ Different from the above work, we do not only treat the user modeling result as 
 
 User modeling can be carried out to obtain web users' demographics information \cite{culotta2015predicting} (e.g., gender, age, ethnicity, education, income, etc.).
 Compared with demographics information, user interests' modeling can be verified more easily \cite{faralli2015large}. 
-
-
-%\cite{diao14recurrent} imports Dirichlet Process into Event detection to capture the duration.
-
-%\cite{Yang2014classifierOnTwitter} uses the classification methods to do the same job.
-
-%\cite{matsubara2012trimine} mining the events from tensor.
-
-%\cite{ritter2012openDomainEventExtraction} mining open domain events.
-
-%\cite{chen2011shortWikipedia} also utilize wikipedia and LDA to enhance the performance of classification on short texts.
 
 \section{Method}
 \subsection{Problem Formulation}
@@ -173,7 +145,7 @@ UMIETM is motivated by two observations: (I)user profiles are more stable to ref
 \end{figure}
 
 To capture Observation I, we enhance the association between profile topic and tweet topic which is inspired by \cite{blei2003modeling}. 
-More particularly, the model generates observed data for user \(u\) in two phases as shown in Fig.\ref{fig:modelUMIETM}. 
+More particularly, the model generates observed data for user \(u\) in two phases as shown in Figure \ref{fig:modelUMIETM}. 
 The first phase generates the hidden topic \(s_{un}\) from user interest topic distribution \(\theta_{u}\), then generates profile token \(p_{un}\).
  
 When \(y_{ud}\) = 0, the second phase generates tweet topic \(z_{ud}\) from associated profile topics \(\{s_{u1},..., s_{un}\}\) uniformly. 
@@ -260,8 +232,6 @@ for each user \(u\): \\
 \label{tab:GenerativeProcess}
 }
 \end{table}
-%Note that not every event \( \{ \bold{w_{te}}\}\) is interesting. For example, there are a lot of tweets about Astrology emerged from time to time in Chinese microblog sphere.
-%Thus we transform our problem into finding out the appropriate word distribution \(\varphi_{te}\) and its corresponding tweet set \( \{ \bold{w_{te}}\}\).
 Overall, the generative process of user profiles and tweets in UMIETM can be described as Table \ref{tab:GenerativeProcess}.
 
 We also propose the variant IETM to check the significance of user profile.
@@ -348,7 +318,6 @@ Here the hidden variable \(x_{udn}=0\) indicates that \(w_{udn}\) is a common wo
 Gibbs Sampling on fixed large dataset is very expensive both in memory and time.
 Each Gibbs sweep need to maintain 12 statistics such as \(c^{(p)}_{k,v}\), \(c^{(p)}_{u,k}\) appeared in Equation(\ref{timeUserTagLDAIVsamplingForS}) to (\ref{timeUserTagLDAIVsamplingX1}).
 Generally, the complexity of the Gibbs sampling is \(O(IK|W|)\) where \(I_1\), \(I_2\) are iteration numbers for profiles and tweet tokens, \(K\) is topic number, \(E\) is event number, \(|P|\) is number of profile tokens and \(|W|\) is number of tweet tokens.
-%\(|W|\) is large, so batch learning on tweet is unacceptable.
 More important, we have to maintain all tweets in memory for batch learning but it is unacceptable.
 
 We propose the online learning method shown in Algorithm 2, and denote the previous learned model as \(\mathcal{M}\), previous trained users \(\mathcal{U}\).
@@ -363,23 +332,7 @@ It can filter out interest-related tweets by user profile, and detect event-rela
 Finally, we handle the dynamic increased vocabulary in line 4.
 Take \(\phi_{k,v}\) as an example, when we meet the word \(v\) unseen, \(\phi_{k,v}\) in current time window can be initially estimated as \(\beta / (c^{(0)}_{k,.}+V'\beta)\), and other words appeared in previous time windows can be estimated as \((c^{(0)}_{k,v}+\beta) / (c^{(0)}_{k,.}+V'\beta)\).
 And \(V'\) is the size of increased vocabulary.
-\begin{comment}
-\begin{figure}
-        \centering
-        \label{fig:subfig} %% label for entire figure
-        \subfigure[online processing]{
-                \label{fig:subfig:a} %% label for first subfigure
-                \includegraphics[height=1.6cm]{img/stream1.eps}
-        }
-        \subfigure[smoothing for new words]{
-                \label{fig:subfig:b} %% label for second subfigure
-                \includegraphics[height=2.0cm]{img/stream2.eps}
-        }
-        \caption{\footnotesize{Illustration on how to reuse the word-topic distribution in online style}}
-\end{figure}
-\end{comment}
 
-%But \cite{yao2009efficient} shows that may cause label swapping.
 \begin{comment}
 \begin{algorithm}[H]
     \caption{UMIETM online learning algorithm} %title
@@ -419,15 +372,12 @@ We crawl weibo data by  its public API\footnote{http://open.weibo.com/} from Jan
 To improve the quality of analyzing on tweets, we do necessary pre-processing: (1) splitting dataset by week, (2) segmenting Chinese words, (3) removing stop words and low frequency words whose document frequency in its time window is less than 3, (4) removing tweets whose token number is less than 3.
 To model user interests better,  we remove users from dataset who has less than 2 hashtags in profile.
 After pre-processing we get 252 thousand users, 16 million tweets and 251 million tweet tokens listed in Table \ref{statisticsOfDataset}.
-%, and .
-%Finally we get .
 \begin{table}
 \caption{statistics of processed dataset}
 \centering
 \subtable[Weibo Dataset]{
        \begin{tabular}{|c|r|r|} \hline
  & \#user & \#tweet \\ \hline
- %\footnote{This dataset is available for reproducibility research. We have anonymized our name. http://...} 
 whole year& 252,369 & 16,421,167 \\ \hline
 week1 & 9,785 & 31,503 \\ \hline
 week2 & 29,721 & 242,554 \\ \hline
@@ -465,10 +415,6 @@ We compare with Author-LDA and TwitterLDA for confirming the significance of dis
 TimeUserLDA\cite{timeUserLDA2012finding} is designed for retrospective event detection in microblog, and considers to distinguish events from user interests.
 We compare with timeUserLDA to show the impact of user profile.
 The variant IETM (\textit{Interest and Event Topic Model}) models user's interests and events without the help of user profiles.
-%UMIETM benifits from modeling user profiles.
-
-%To demonstrate the necessary of user profiles, we compare it to its variant IETM (Interest and Event Topic Model) which only consider the tweets shown in figure \ref{fig:IETM}.
-%IETM also run in online learning way.
 
 We set the asymmetric \(\alpha\) and symmetric \(\beta=0.01\) for UMIETM, where \(\alpha\) will be optimized by Gibbs EM algorithm\cite{wallach2008structured}.
 \(\alpha=0.1\), \(\beta=0.01\) are set for all remaining models. 
@@ -476,8 +422,6 @@ After cross validation we find that UMIETM and IETM perform best on \(K=90\) and
 To compare equally, we set the same topic number for Author-LDA, twitterLDA, timeUserLDA (which means when we run models offline on 1 time window, we shall set 120 topics for all, and 150 topics on 2 time windows and so on).
 
 To verify the role of user profiles played, we set UMIETM(-) as the degradation of UMIETM, which take symmetric prior \(\alpha\).
-%todo To overcome the power-law distribution of events, we use the asymmectric priors according the suggestion given by Hanna.
-%\subsection{Model Selection}
 
 \subsection{Effectiveness}
 In this subsection, we illustrate the performance of UMIETM in which user profile is considered.
@@ -495,17 +439,12 @@ The precision and recall is illustrated, where UMIETM(-) performs slightly bette
 And UMIETM outperforms UMIETM(-) in detecting high quality event. 
 A reasonable analysis is that UMIETM uses the profile information sufficiently by asymmetric priors\cite{wallach2009rethinking}. 
 In this way, we also prove that the well exploiting of user profile information is important to model user interests and events on tweets. 
-%\subsubsection{Precision of Event Detection}
 
 \textbf{Case Study} 
 Some events detected by our UMIETM model are shown in Table \ref{fig:event}.
 Comparing with UMIETM, timeUserLDA fails to discover the \textit{shoddy construction} event in the second week, while IETM reports this event as \textit{bi, women, elegant, adoption, engineering, reed}. Obviously IETM fails to distinguish this event from user interests.
 UMIETM filters users' interests like \textit{bi, women, elegant, adoption} using their profile {\#baby, \#women}, and detect the event.
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
 \begin{table}[]
 \centering
 \caption{Example Events detected by UMIETM}
@@ -521,34 +460,7 @@ UMIETM filters users' interests like \textit{bi, women, elegant, adoption} using
 \end{tabular}
 }
 \end{table}
-%\begin{figure}
-%\centering
-%        \includegraphics[height=5.7cm]{img/Event2.eps}
-%        \caption{Events detected by UMIETM}
-%        \label{fig:event}
-%\end{figure}
 
-
-
-
-% \begin{figure}
-% \centering
-%         \includegraphics[height=4.0cm]{userEventLDA.eps}
-%         \caption{The variant IETM (Interest and Event Topic Model)}
-%         \label{fig:IETM}
-% \end{figure}
-
-
-
-%We test precision for detected events. 
-%We asked two questions: [todo]. 
-
-% \begin{figure}
-% \centering
-%         \includegraphics[height=3.5cm]{perplexity.eps}
-%         \caption{Held out perplexities for various models}
-%         \label{fig:perplexity}
-% \end{figure}
 \subsection{Efficiency}
 We implement our methods on mallet\footnote{http://mallet.cs.umass.edu/dist/mallet-2.0.7.tar.gz}, and run them on Linux server with 8 cores(2.00GHz) and 64GB memory.
 In this subsection, we verify the convergence and online performance of our online learning algorithm. 
@@ -563,26 +475,20 @@ Fortunately UMIETM is very economic to its stable state and does not need so muc
 As suggested by \cite{wallach2009rethinking} and \cite{jian2014factorOfTopicModel}, we choose LDA with asymmetric priors as baseline, which is much more comparable than standard LDA on microblog dataset.
 We run UMIETM on the first three time windows. 
 Correspondingly we only use the tweets in these time windows for LDA with asymmetric priors.
-Burn-in period is set to 20 and optimize interval also 20, which means the priors are optimized every 20 iterations as the red curve in Fig \ref{fig:completeLoglikelihood}.
+Burn-in period is set to 20 and optimize interval also 20, which means the priors are optimized every 20 iterations as the red curve in Figure \ref{fig:completeLoglikelihood}.
 
 One of the criteria for stopping Gibbs sampling is that the complete log likelihood is stabilized.
 We stop UMIETM after 50 iterations since the complete log likelihood only increases 0.02\% in last iteration.
 It will take LDA(asymmetric priors) 300 minutes to run 1000 iterations, and 20 minutes per 10 iterations for UMIETM.
 There is a trade-off between the effectiveness by more iterations and efficiency by less,  we set the iteration number as 10 in online setting.
 After 10 iterations the UMIETM's complete log likelihood will increase no more than 0.2\%.
-% \subsubsection{Soundness}
-% As the online learning for UMIETM is an approximated version of batch learning for UMIETM, the soundness should be confirmed before applying it in the real enviroment.
-%[todo] We also want to show that online learning for UMIETM does not  sacrifice the accuracy. 
-%Comapring the held out perplexity.
+
 
 \textbf{Online Performance.}
-%Figure \ref{fig:completeLoglikelihood} shows that the log likelihood increases less than 0.1\% after 12 iterations.
-%Our experiment shows UMIETM has good convergence that the complete log likelihood increases less than 0.15\% after 10 iterations.
 As verified in the above subsection \textit{Convergence}, we run 10 Gibbs sweeps for each time window in online learning phase.
 When UMIETM is implemented in online way, it doesn't have to revisit the tweets in previous windows. 
 So its time cost in each window is proportional to the data size of current window  as shown in Figure \ref{fig:onlinelearningResult}.
 In average, online UMIETM can process five thousand tokens per second.
-%Memory cost grows slightly and the increased memory cost only depends on the size of vocabulary.
 
 LSH based event detection on microblogs is used by \cite{petrovic2010streaming},\cite{mccreadiescalable}. 
 The former one detects events as the cluster of tweets by LSH, and the latter one extends this method on distributed machines. 
@@ -590,22 +496,13 @@ They both only use the cosine similarity without considering semantic meaning of
 So LSH based method may split the same event into clusters of similar tweets.
 However LSH based method reports 10578 events in 7th time window, and 10901 events in 8th window. 
 The other problem of LSH based event detection method is that the bad design may lead unstable performance. 
-The tweets are mapped into LSH defined space in a skew way which is illustrated in Fig \ref{fig:onlinelearningResult}.
+The tweets are mapped into LSH defined space in a skew way which is illustrated in Figure \ref{fig:onlinelearningResult}.
 The other comparison is timeUserLDA\cite{timeUserLDA2012finding} which is designed for retrospective event detction. 
-The purple line in Fig \ref{fig:onlinelearningResult} goes up straightly as timeUserLDA has to revisit previous tweets to make a decision whether the tweet is event related. 
-The perplexity of online UMIETM on the 11 time window in Fig \ref{fig:onlinelearningResult} is \(3036.44\pm397.14\). 
+The purple line in Figure \ref{fig:onlinelearningResult} goes up straightly as timeUserLDA has to revisit previous tweets to make a decision whether the tweet is event related. 
+The perplexity of online UMIETM on the 11 time window in Figure \ref{fig:onlinelearningResult} is \(3036.44\pm397.14\). 
 And the average precision of detecting high quality event is 0.22.
 Both indicators demonstrate that UMIETM can perform well in online learning way. 
 
-%We run our model on one year dataset, and show the first 9 week results due to space limit.
-%And at the same time, we monitor the perplexity on each window, and find that the avage is , and highest is .
-%This demonstrates that our model is very effective.
-%\begin{figure}
-%\centering
-%        \includegraphics[height=3.0cm]{completeLoglikelihood.eps}
-%        \caption{complete log likelihood}
-%        \label{fig:completeLoglikelihood}
-%\end{figure}\emph{}
 
 \begin{figure}
         \centering
