@@ -1,8 +1,11 @@
 % !Mode:: "TeX:UTF-8"
-\documentclass{llncs}
-\usepackage{llncsdoc}
+\documentclass[runningheads,a4paper]{llncs}
 
-\usepackage{fontspec}
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+%\usepackage{llncsdoc}
+
+%\usepackage{fontspec}
 \usepackage{comment}
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 \usepackage{graphicx}
@@ -11,6 +14,7 @@
 \usepackage{amsmath}%数学公式
 \usepackage{bm}
 \usepackage{multirow}
+\usepackage{url}
 
 %四象限图 quadrant chart
 % \usepackage[T1]{fontenc}
@@ -19,10 +23,31 @@
 %\usepackage{array}
 % \newcolumntype{M}{>{\centering\arraybackslash}m{2cm}}
 
-\title{An Efficient Online Event Detection Method for Microblogs via User Modeling}
+
+\title{An Efficient Online Event Detection Method for Microblogs via User Modeling \thanks{This research is supported by the National High Technology Research and Development Program of China (Grant No. 2012AA011002), Natural Science Foundation of China (Grant No. 61300003), Specialized Research Fund for the Doctoral Program of Higher Education(Grant No. 20130001120001).}}
+
 
 \begin{document}
+\author{Weijing Huang\inst{1} \and Wei Chen\inst{1} \thanks{Corresponding author.}\and Lamei Zhang\inst{2}\and Tengjiao Wang\inst{1}}
+\institute{Key Laboratory of High Confidence Software Technologies(Ministry of Education), EECS, Peking University, Beijing, China \and 
+Baidu Inc., Beijing, China\\ 
+\path{huangwaleking@gmail.com,{pekingchenwei,tjwang}@pku.edu.cn,}\\ 
+\path{citlmzhang@163.com}
+}
+%
+\authorrunning{Weijing Huang et al.}
+\toctitle{Lecture Notes in Computer Science}
+\tocauthor{Weijing Huang et al.}
 \maketitle
+% BEGIN
+% To Proceeding Editors:
+% Special codes there for remove page numbers in the LaTeX documents
+\thispagestyle{empty}
+\pagestyle{empty}
+%
+% END
+%
+
 \begin{abstract}
 Detecting events in microblog is important but still challenging. As tweet stream is a mixture of user interests and external events, it’s expensive to distinguish them.
 Existing methods are ineffective since they ignore user interests or only model interests and events on a fixed dataset without scalability. In this paper, we introduce an online learning model User Modeling Based Interest and Event Topic Model (UMIETM). UMIETM (1) exploits user modeling's information to discover events by filtering out user interest-related tweets, and (2) treats the arriving data as stream and run the detection in online learning style. Furthermore, UMIETM can handle dynamic increased vocabulary in tweet stream. The UMIETM is verified on the real dataset which spans one year and contains 16 million tweets, and it outperforms a state-of-the-art model in quantitative.
@@ -419,7 +444,7 @@ UMIETM & 0.894 & 0.913\\ \hline
 UMIETM(-) & 0.847 & 0.697 \\ \hline
 IETM & 0.824 & 0.536 \\ \hline
 LSH & 0.394 & 0.913 \\ \hline
-EDCoW & 0.731 & 0.435 \\ \hline
+EDCoW\cite{weng2011event} & 0.731 & 0.435 \\ \hline
 \end{tabular}
        \label{tab:metrics}
 }
@@ -584,11 +609,11 @@ Both indicators demonstrate that UMIETM can perform well in online learning way.
 
 \begin{figure}
         \centering
-        \subfigure[\(\alpha=(2.5,2.5,3.5)\)]{
+        \subfigure[Convergence of complete log likelihood]{
                 \label{fig:completeLoglikelihood} %% label for first subfigure
                 \includegraphics[height=3.1cm]{img/completeLoglikelihood.eps}
         }
-        \subfigure[\(\alpha=(0.25,0.75,0.75)\)]{
+        \subfigure[Efficiency of UMIETM]{
                 \label{fig:onlinelearningResult} %% label for third subfigure
                 \includegraphics[height=3.1cm]{img/efficiencyCompareWithLSH.eps}
         }
