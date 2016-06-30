@@ -22,7 +22,7 @@
 
 \begin{document}
 \author{Weijing Huang\inst{1} \and Wei Chen\inst{1} \thanks{Corresponding author.}\and Lamei Zhang\inst{2}\and Tengjiao Wang\inst{1}}
-\institute{Key Laboratory of High Confidence Software Technologies(Ministry of Education), EECS, Peking University, Beijing, China \and 
+\institute{Key Laboratory of High Confidence Software Technologies (Ministry of Education), EECS, Peking University, Beijing, China \and 
 Baidu Inc., Beijing, China\\ 
 \path{huangwaleking@gmail.com,{pekingchenwei,tjwang}@pku.edu.cn,}\\ 
 \path{citlmzhang@163.com}
@@ -43,7 +43,7 @@ Baidu Inc., Beijing, China\\
 
 \begin{abstract}
 Detecting events in microblog is important but still challenging. As tweet stream is a mixture of user interests and external events, it’s expensive to distinguish them.
-Existing methods are ineffective since they ignore user interests or only model interests and events on a fixed dataset without scalability. In this paper, we introduce an online learning model User Modeling Based Interest and Event Topic Model (UMIETM). UMIETM (1) exploits user modeling's information to discover events, which usually capture attention from users with different interests, and (2) treats the arriving data as stream and run the detection in online learning style. Furthermore, UMIETM can handle dynamic increased vocabulary in tweet stream. The UMIETM is verified on the real dataset which spans one year and contains 16 million tweets, and it outperforms state-of-the-art models in quantitative.
+Existing methods are ineffective since they ignore user interests or only model interests and events on a fixed dataset without scalability. In this paper, we introduce an online learning model User Modeling Based Interest and Event Topic Model (UMIETM). UMIETM (1) exploits user modeling's information to discover events, which usually capture attentions from users with different interests, and (2) treats the arriving data as stream and run the detection in online learning style. Furthermore, UMIETM can handle dynamic increased vocabulary in tweet stream. The UMIETM is verified on the real dataset which spans one year and contains 16 million tweets, and it outperforms state-of-the-art models in quantitative.
 \keywords{event detection, online learning model, microblog stream, user modeling.}
 \end{abstract}
 \section{Introduction}
@@ -132,9 +132,9 @@ The element of \(\bm{w_u}\) is a triple of tweet id, time stamp \(t_{ud}\) and t
 
 
 \textbf{Event.} We define the event in the given time window \(t\) as the set of tweets denoted by \( \{ \bm{w_{te}}\}\).
-The event related tweets in set \( \{ \bm{w_{te}}\}\)  hold two properties: (1) they are posted by users with different interets (2) they are similar within the set.
+The event related tweets in set \( \{ \bm{w_{te}}\}\)  hold two properties: (1) they are posted by users with different interests (2) they are similar within the set.
 The task of event detection is to find out all the events in corpus.
-Different methods treat the above properties in different ways: LSH based methods\cite{petrovic2010streaming} treat the difference and simliarity in word vector space; while the topic model based methods\cite{timeUserLDA2012finding} take the semantic meaning into consideration.
+Different methods treat the above properties in different ways: LSH based methods\cite{petrovic2010streaming} treat the difference and similarity in word vector space; while the topic model based methods\cite{timeUserLDA2012finding} take the semantic meaning into consideration.
 Under the framework of topic model, we divide the topics into user interest related topics and bursty event related topics, and further promote an online learning model UMIETM.
 
 \subsection{Model Descriptions}
@@ -170,7 +170,7 @@ We set \(E\) events as word distributions \(\{\varphi_{te}\}\) in each time wind
 \scalebox{0.7}{
 \begin{tabular}{|l|p{8.5cm}|} \hline
 \(T\) & number of time windows     \\ \hline
-\(E\) & number of event-realted topics in each time window \\ \hline
+\(E\) & number of event-related topics in each time window \\ \hline
 \(K\) & number of interest-related topics \\ \hline
 \(U\) & number of users \\ \hline
 \(P_u\) & number of tokens appeared in user \(u\)'s profile \\ \hline
@@ -549,7 +549,7 @@ In average, online UMIETM can process five thousand tokens per second.
 
 One problem of LSH based event detection method is that the bad design may lead to unstable performance. 
 The tweets are mapped into LSH defined space in a skew way which is illustrated in Figure \ref{fig:onlinelearningResult}.
-The other comparison is timeUserLDA\cite{timeUserLDA2012finding} which is designed for retrospective event detction. 
+The other comparison is timeUserLDA\cite{timeUserLDA2012finding} which is designed for retrospective event detection. 
 The purple line in Figure \ref{fig:onlinelearningResult} goes up straightly as timeUserLDA has to revisit previous tweets to make a decision whether the tweet is event related. 
 The perplexity of online UMIETM on the 11 time windows in Figure \ref{fig:onlinelearningResult} is \(3036.44\pm397.14\). 
 This indicator demonstrates that UMIETM can perform well in online learning way. 
@@ -566,11 +566,11 @@ This indicator demonstrates that UMIETM can perform well in online learning way.
         \caption{(a) The convergence of complete log likelihood of UMIETM and LDA(with asymmetric priors). The x-axis represents the round of iteration and y-axis shows the complete log likelihood. (b) Efficiency of UMIETM. The x-axis represents the time window, and y-axis shows the duration of processing or the number of tweets in each corresponding time window.}
 \end{figure}
 \section{Conclusions}
-Microbiolog is mixed with user interests and external events. 
-And the external bursty events can be bettern detected by well user modeling, as the bursty events usually capture the attention from users with different interets.
+Microblog is mixed with user interests and external events. 
+And the external bursty events can be better detected by well user modeling, as the bursty events usually capture the attention from users with different interests.
 Since user profile can help to identify user's long term interest, our proposed model UMIETM exploit this vital information into user modeling and event detection.
 We further treat the arriving data as stream and run the detection in online learning style.
-The experiments demonstrates that our method is effective and efficient for online event detection in microblogs. 
+The experiments demonstrate that our method is effective and efficient for online event detection in microblogs. 
 As future work, it would be interesting to discover which groups with specific long term interests are more positive to participate in the discussion of bursty events.
 
 \bibliographystyle{unsrt}
