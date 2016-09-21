@@ -42,7 +42,7 @@ Baidu Inc., Beijing, China\\
 %
 
 \begin{abstract}
-Detecting events in microblog is important but still challenging. As tweet stream is a mixture of user interests and external events, it’s expensive to distinguish them.
+Detecting events in microblog is important but still challenging. As tweet stream is a mixture of user interests and external events, it's expensive to distinguish them.
 Existing methods are ineffective since they ignore user interests or only model interests and events on a fixed dataset without scalability. In this paper, we introduce an online learning model User Modeling Based Interest and Event Topic Model (UMIETM). UMIETM (1) exploits user modeling's information to discover events, which usually capture attentions from users with different interests, and (2) treats the arriving data as stream and run the detection in online learning style. Furthermore, UMIETM can handle dynamic increased vocabulary in tweet stream. The UMIETM is verified on the real dataset which spans one year and contains 16 million tweets, and it outperforms state-of-the-art models in quantitative.
 \keywords{event detection, online learning model, microblog stream, user modeling.}
 \end{abstract}
@@ -101,7 +101,7 @@ It can deal with a massive of tweets, but it doesn't filter out the tweets relat
 Diao\cite{timeUserLDA2012finding}\cite{diao2013unified} show that event detection can benefit from filtering out user interest related tweets. 
 And Yan\cite{Yan:2015wm} models the bursty topic by incorporating burstiness of biterms as prior knowledge.
 But they are different from ours.
-As these models need the whole dataset as the input, they are offline detections, which is not scalability for large dynamic dataset such as micorblogs.
+As these models need the whole dataset as the input, they are offline detections, which is not scalability for large dynamic dataset such as microblogs.
 Instead, we gather user's self-description and the followings' self-description as user profile which is stable to characterize user interests. 
 Based on this fine-grained user modeling information, user's long term interest related tweets and short term bursty event related tweets can be distinguished in online style, and can be efficiently applied on microblogs.
 
